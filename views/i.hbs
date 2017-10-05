@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+{{!-- <style>
+table, td {
+    border: 1px solid black;
+}
+</style> --}}
+</head>
+<body>
+
+<table id="myTable">
+<tr>
+        <th>id</th>
+        <th>todo_msg</th>
+        {{!-- <th>status</th>
+        <th>added on </th> --}}
+     </tr>
+     {{#each userresults}}
+<tr>
+  <td >{{this.id}}</td>
+  <td >{{this.todo_msg}}</td>
+  
+  <td ><input type="button" value="Delete" onclick="deleteRow(this)"></td>
+  {{/each}}
+</tr>
+
+</table>
+
+    //var ele = document.getElementById("myTable");
+                    ele.style.setProperty("text-decoration", "line-through");
+
+</body>
+</html>

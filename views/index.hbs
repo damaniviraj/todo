@@ -1,0 +1,118 @@
+<html>
+
+<head>
+    {{!--
+    <h1>{{title}}</h1> --}} {{!-- //link(rel='stylesheet', href='/stylesheets/style.css') --}}
+
+    <script>
+        function deleteRow(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementById("myTable").deleteRow(i);
+        }
+
+        function checkStrikethrough(element) {
+            var element = document.getElementById("myTable");
+            var elementToDelete = element.parentElement.nextElementSibling;
+
+            element.checked ? elementToDelete.style.color = 'red' : elementToDelete.style.color = 'black';
+
+        }
+        function done(frm_id) {
+
+            document.getElementById('id_' + frm_id).style.setProperty("text-decoration", "line-through");
+
+
+
+            //}
+
+            //for (i = 0; i < ele.length; i++) 
+            //{ 
+            // ele[i].style.textDecoration = "line-through";
+            //}
+
+        }
+
+        //function addtask()
+        //{
+        //var text = document.getElementById("task");
+        //var input = document.getElementById('textbox');
+        //alert(task.value);
+        // }
+        function loadDoc() {
+            var search_txt = document.getElementById("search_txt").value;
+            //alert(search_txt);
+            var params = {
+                "todo" : search_txt
+            };
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/insert");
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.onreadystatechange = function () {
+
+               if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("response").innerHTML = xhr.responseText;
+                }
+           };
+            xhr.send(JSON.stringify(params));
+        }
+    </script>
+    {{!-- function add_task() { var inputValue = document.getElementById("myInput").value; var t = document.createTextNode(inputValue);
+    if (inputValue === '') { alert("You must write something!"); } else { document.getElementById("").appendChild(); } document.getElementById("myInput").value
+    = ""; }--}}
+</head>
+
+<body>
+
+
+    <h1>To Do List</h1>
+    <form name="todo" method="POST" action="">
+        <div id="tdo">
+            <label>ToDo</label> Task to add: <input type="text" id="search_txt" placeholder="enter the todo task">
+            <input type="button" onclick="loadDoc()" value="Add">
+            <div id="response"></div>
+        </div>
+        <br>
+
+
+
+
+
+
+        <table id="myTable">
+
+            <tr>
+                <th>id</th>
+                <th>todo_msg</th>
+                {{!--
+                <th>status</th>
+                <th>added on </th> --}}
+            </tr>
+            {{#each userresults}}
+            <tr id="id_{{this.id}}">
+                <td>{{this.id}}</td>
+                <td>{{this.todo_msg}}</td>
+                <td><input type="button" onclick="done({{this.id}})" value="Done"> </td>
+                <td> <input type="button" onclick="deleteRow(this)" value="Delete"> </td>
+                {{/each}}
+            </tr>
+        </table>
+
+
+    </form>
+
+    {{!--
+    <script>
+        for (var i = 0; i < userresults.length; i++) {
+            var text = userresults[i]
+
+            tr = $('<tr/>');
+            tr.append("<td>" + text.id[] + "</td>");
+            tr.append("<td>" + text.todo_msg + "</td>")
+                    // p= text.todo_msg +"  " 
+                    //p=text.status +"    "
+    </script> --}}
+
+
+</body>
+
+</html>
